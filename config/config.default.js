@@ -36,6 +36,18 @@ module.exports = appInfo => {
     // 是否加载到 agent 上，默认关闭
     agent: false,
   };
+  // 跨域问题
+  config.security = {
+    csrf: {
+      enable: false
+    },
+    domainWhiteList: ['*']
+  };
+  config.cors = {
+    origin: '*',    // 允许访问的接口   可以传入指定的接口如 http://localhost:3000
+    credentials: false,  // 是否开启认证
+    allowMethods: 'GET, HEAD, PUT, POST, DELETE, PATCH, OPTIONS'   // 请求接口的方式
+  }
 
   // add your user config here
   const userConfig = {

@@ -9,5 +9,9 @@ module.exports = {
   mysql: {
       enble: true,
       package: 'egg-mysql'
+  },
+  cors: {  // 配置跨域问题
+    enable: true,
+    package: 'egg-cors'
   }
 };

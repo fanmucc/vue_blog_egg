@@ -5,23 +5,35 @@ const Controller = require('egg').Controller;
 class HomeController extends Controller {
   async index() {
     const { ctx } = this;
-    ctx.body = 'api测试';
-  }
-  async getArticleList () {
-    let sql = 'SELECT article.id as id ,' +
-              'article.title as title ,' +
-              'article.introduction as introduction ,' +
-              'article.article_content as article_content,' +
-              'article.addTime as addTime ,' +
-              'article.view_count as view_count ,' +
-              'type.type_name as typeName  ' +
-              'FROM article LEFT JOIN type ON article.type_id = type.Id'
+    // 获取全部文章
+    let sql = `select * from article`
     const results = await this.app.mysql.query(sql)
-    this.ctx.body = results
+    ctx.body = {
+      results: {
+        success: true,
+        errorMsg: '',
+        errorCode: ''
+      },
+      data: results
+    }
   }
-  async list () {
-    const { ctx } = this;
-    ctx.body = ctx
+  async gitTag () {
+    const { ctx } = this
+    // 根据不同标签id 返回响应标签的全部文章
+    const tagId = ctx.query.id
+    // console.log(ctx.request.body)  // 获取post参数
+    // console.log(ctx.query)         // 获取get请求参数
+    // console.log(ctx.params)        // 获取动态路由参数 /:id等
+    const sql = `select * from article where type_id=${tagId}`
+    const results = await this.app.mysql.query(sql)
+    ctx.body = {
+      results: {
+        success: true,
+        errorMsg: '',
+        errorCode: ''
+      },
+      data: results
+    }
   }
 }
 
