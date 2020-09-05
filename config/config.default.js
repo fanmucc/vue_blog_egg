@@ -39,7 +39,7 @@ module.exports = appInfo => {
   // 跨域问题
   config.security = {
     csrf: {
-      enable: false
+      enable: false  // 关闭egg内置表单验证
     },
     domainWhiteList: ['*']
   };
